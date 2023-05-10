@@ -1,0 +1,435 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
+
+    <xacro:include filename="inertial_macros.xacro"/>
+    <material name="white">
+        <color rgba = "1 1 1 1" />
+    </material>
+
+    <material name="orange">
+        <color rgba = "1 0.3 0.3 1" />
+    </material>
+    <material name="blue">
+        <color rgba = "0.2 0.2 1 1" />
+    </material>
+    <material name="black">
+        <color rgba = "0 0 0 1" />
+    </material>
+
+    <!--common practice to create a base link . commonly placed on centre-->
+    <link name = "base_link">  
+        <visual>
+            <origin xyz="0 0 0"/>
+            <material name="white"/>
+            <geometry>
+                
+                <box size = "0.15 0.10 0.05"/>
+            </geometry>
+        </visual>   
+    </link>
+<!-- 
+    <joint name ="chassis_joint" type="revolute">
+        <parent link= "base_link"/>
+        <child link = "chassis"/>
+        <origin xyz= "0.1 0 0"/>
+        <axis xyz = "0 1 0"/>
+        <limit lower="-1.57" upper="1.57" effort = "10000" velocity="100.0"/>
+    </joint>
+
+    <link name = "chassis">
+        -->
+    <!-- </link> -->
+    <joint name = "servo1_joint_1" type="revolute">
+        <parent link = "base_link"/>
+        <child link = "servo1_link_1"/>
+        <origin xyz = "0.0825 -0.045 -0.02"/>
+        <axis xyz = "1 0 0"/>
+        <limit lower="-1.57" upper="1.57" effort = "10000" velocity="100.0"/>
+    </joint>
+
+    <link name="servo1_link_1">
+        <visual>
+            <origin xyz="0 0 0 "/>
+            <material name="white"/>
+            <geometry>
+                <box size = "0.015 0.010 0.01"/>
+            </geometry>
+            
+
+        </visual>
+        <collision>
+            <origin xyz="0.0825 -0.045 -0.02"/>
+            <material name="white"/>
+            <geometry>
+                <box size = "0.015 0.010 0.01"/>
+            </geometry>
+            
+        </collision>
+        <xacro:inertial_box mass='0.5' x='0.3' y='0.3' z='0.15'>
+            <origin xyz="0.15 0 0.075" rpy='0 0 0'/>
+        </xacro:inertial_box>
+
+    </link>
+   
+    <joint name = "servo2_joint_1" type="revolute">
+        <parent link = "servo1_link_1"/>
+        <child link = "servo2_link_1"/>
+        <origin xyz = "0 -0.006 0"/>
+        <axis xyz = "0 1 0"/>
+        <limit lower="-1.57" upper="1.57" effort = "10000" velocity="100.0"/>
+    </joint>
+
+    <link name="servo2_link_1">
+        <visual>
+            <origin xyz="0 0 -0.035"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.02 0.002 0.07"/>
+            </geometry>
+            
+
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.0675"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.02 0.002 0.07"/>
+            </geometry>
+            
+        </collision>
+        <xacro:inertial_box mass='0.5' x='0.3' y='0.3' z='0.15'>
+            <origin xyz="0.15 0 0.075" rpy='0 0 0'/>
+        </xacro:inertial_box>
+
+
+
+    </link>
+
+    <joint name = "servo3_joint_1" type="revolute">
+        <parent link = "servo2_link_1"/>
+        <child link = "servo3_link_1"/>
+        <origin xyz = "0 0 -0.068"/>
+        <axis xyz = "0 1 0"/>
+        <limit lower="0" upper="3.14" effort = "10000" velocity="100.0"/>
+    </joint>
+
+    <link name="servo3_link_1">
+        <visual>
+            <origin xyz="0 0 -0.034"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.02 0.002 0.07"/>
+            </geometry>
+            
+
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.0675"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.02 0.002 0.07"/>
+            </geometry>
+            
+        </collision>
+        <xacro:inertial_box mass='0.5' x='0.3' y='0.3' z='0.15'>
+            <origin xyz="0.15 0 0.075" rpy='0 0 0'/>
+        </xacro:inertial_box>
+    </link>
+ 
+    <!-- Leg 2 -->
+
+    <joint name = "leg_2_servo1_joint_1" type="revolute">
+        <parent link = "base_link"/>
+        <child link = "leg_2_servo1_link_1"/>
+        <origin xyz = "0.0825 0.045 -0.02"/>
+        <axis xyz = "1 0 0"/>
+        <limit lower="-1.57" upper="1.57" effort = "10000" velocity="100.0"/>
+    </joint>
+
+    <link name="leg_2_servo1_link_1">
+        <visual>
+            <origin xyz="0 0 0 "/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.015 0.010 0.01"/>
+            </geometry>
+            
+
+        </visual>
+        <collision>
+            <origin xyz="0.0825 -0.045 -0.02"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.015 0.010 0.01"/>
+            </geometry>
+            
+        </collision>
+        <xacro:inertial_box mass='0.5' x='0.3' y='0.3' z='0.15'>
+            <origin xyz="0.15 0 0.075" rpy='0 0 0'/>
+        </xacro:inertial_box>
+
+    </link>
+   
+    <joint name = "leg_2_servo2_joint_1" type="revolute">
+        <parent link = "leg_2_servo1_link_1"/>
+        <child link = "leg_2_servo2_link_1"/>
+        <origin xyz = "0 0.006 0"/>
+        <axis xyz = "0 1 0"/>
+        <limit lower="-1.57" upper="1.57" effort = "10000" velocity="100.0"/>
+    </joint>
+
+    <link name="leg_2_servo2_link_1">
+        <visual>
+            <origin xyz="0 0 -0.035"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.02 0.002 0.07"/>
+            </geometry>
+            
+
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.0675"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.02 0.002 0.07"/>
+            </geometry>
+            
+        </collision>
+        <xacro:inertial_box mass='0.5' x='0.3' y='0.3' z='0.15'>
+            <origin xyz="0.15 0 0.075" rpy='0 0 0'/>
+        </xacro:inertial_box>
+
+
+
+    </link>
+
+    <joint name = "leg_2_servo3_joint_3" type="revolute">
+        <parent link = "leg_2_servo2_link_1"/>
+        <child link = "leg_2_servo3_link_1"/>
+        <origin xyz = "0 0 -0.068"/>
+        <axis xyz = "0 1 0"/>
+        <limit lower="-1.57" upper="1.57" effort = "10000" velocity="100.0"/>
+    </joint>
+
+    <link name="leg_2_servo3_link_1">
+        <visual>
+            <origin xyz="0 0 -0.034"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.02 0.002 0.07"/>
+            </geometry>
+            
+
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.0675"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.02 0.002 0.07"/>
+            </geometry>
+            
+        </collision>
+        <xacro:inertial_box mass='0.5' x='0.3' y='0.3' z='0.15'>
+            <origin xyz="0.15 0 0.075" rpy='0 0 0'/>
+        </xacro:inertial_box>
+    </link>
+    <!-- leg 3 -->
+
+
+    <joint name = "leg_3_servo1_joint_1" type="revolute">
+        <parent link = "base_link"/>
+        <child link = "leg_3_servo1_link_1"/>
+        <origin xyz = "-0.0825 0.045 -0.02"/>
+        <axis xyz = "1 0 0"/>
+        <limit lower="-1.57" upper="1.57" effort = "10000" velocity="100.0"/>
+    </joint>
+
+    <link name="leg_3_servo1_link_1">
+        <visual>
+            <origin xyz="0 0 0 "/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.015 0.010 0.01"/>
+            </geometry>
+            
+
+        </visual>
+        <collision>
+            <origin xyz="0.0825 -0.045 -0.02"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.015 0.010 0.01"/>
+            </geometry>
+            
+        </collision>
+        <xacro:inertial_box mass='0.5' x='0.3' y='0.3' z='0.15'>
+            <origin xyz="0.15 0 0.075" rpy='0 0 0'/>
+        </xacro:inertial_box>
+
+    </link>
+   
+    <joint name = "leg_3_servo2_joint_1" type="revolute">
+        <parent link = "leg_3_servo1_link_1"/>
+        <child link = "leg_3_servo2_link_1"/>
+        <origin xyz = "0 0.006 0"/>
+        <axis xyz = "0 1 0"/>
+        <limit lower="-1.57" upper="1.57" effort = "10000" velocity="100.0"/>
+    </joint>
+
+    <link name="leg_3_servo2_link_1">
+        <visual>
+            <origin xyz="0 0 -0.035"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.02 0.002 0.07"/>
+            </geometry>
+            
+
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.0675"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.02 0.002 0.07"/>
+            </geometry>
+            
+        </collision>
+        <xacro:inertial_box mass='0.5' x='0.3' y='0.3' z='0.15'>
+            <origin xyz="0.15 0 0.075" rpy='0 0 0'/>
+        </xacro:inertial_box>
+
+
+
+    </link>
+
+    <joint name = "leg_3_servo3_joint_3" type="revolute">
+        <parent link = "leg_3_servo2_link_1"/>
+        <child link = "leg_3_servo3_link_1"/>
+        <origin xyz = "0 0 -0.068"/>
+        <axis xyz = "0 1 0"/>
+        <limit lower="-1.57" upper="1.57" effort = "10000" velocity="100.0"/>
+    </joint>
+
+    <link name="leg_3_servo3_link_1">
+        <visual>
+            <origin xyz="0 0 -0.034"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.02 0.002 0.07"/>
+            </geometry>
+            
+
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.0675"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.02 0.002 0.07"/>
+            </geometry>
+            
+        </collision>
+        <xacro:inertial_box mass='0.5' x='0.3' y='0.3' z='0.15'>
+            <origin xyz="0.15 0 0.075" rpy='0 0 0'/>
+        </xacro:inertial_box>
+    </link>
+    
+
+    <!-- link 4 -->
+    <joint name = "leg_4_servo1_joint_1" type="revolute">
+        <parent link = "base_link"/>
+        <child link = "leg_4_servo1_link_1"/>
+        <origin xyz = "-0.0825 -0.045 -0.02"/>
+        <axis xyz = "1 0 0"/>
+        <limit lower="-1.57" upper="1.57" effort = "10000" velocity="100.0"/>
+    </joint>
+
+    <link name="leg_4_servo1_link_1">
+        <visual>
+            <origin xyz="0 0 0 "/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.015 0.010 0.01"/>
+            </geometry>
+            
+
+        </visual>
+        <collision>
+            <origin xyz="0.0825 -0.045 -0.02"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.015 0.010 0.01"/>
+            </geometry>
+            
+        </collision>
+        <xacro:inertial_box mass='0.5' x='0.3' y='0.3' z='0.15'>
+            <origin xyz="0.15 0 0.075" rpy='0 0 0'/>
+        </xacro:inertial_box>
+
+    </link>
+   
+    <joint name = "leg_4_servo2_joint_1" type="revolute">
+        <parent link = "leg_4_servo1_link_1"/>
+        <child link = "leg_4_servo2_link_1"/>
+        <origin xyz = "0 -0.006 0"/>
+        <axis xyz = "0 1 0"/>
+        <limit lower="-1.57" upper="1.57" effort = "10000" velocity="100.0"/>
+    </joint>
+
+    <link name="leg_4_servo2_link_1">
+        <visual>
+            <origin xyz="0 0 -0.035"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.02 0.002 0.07"/>
+            </geometry>
+            
+
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.0675"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.02 0.002 0.07"/>
+            </geometry>
+            
+        </collision>
+        <xacro:inertial_box mass='0.5' x='0.3' y='0.3' z='0.15'>
+            <origin xyz="0.15 0 0.075" rpy='0 0 0'/>
+        </xacro:inertial_box>
+
+
+
+    </link>
+
+    <joint name = "leg_4_servo3_joint_1" type="revolute">
+        <parent link = "leg_4_servo2_link_1"/>
+        <child link = "leg_4_servo3_link_1"/>
+        <origin xyz = "0 0 -0.068"/>
+        <axis xyz = "0 1 0"/>
+        <limit lower="-1.57" upper="1.57" effort = "10000" velocity="100.0"/>
+    </joint>
+
+    <link name="leg_4_servo3_link_1">
+        <visual>
+            <origin xyz="0 0 -0.034"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.02 0.002 0.07"/>
+            </geometry>
+            
+
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.0675"/>
+            <material name="blue"/>
+            <geometry>
+                <box size = "0.02 0.002 0.07"/>
+            </geometry>
+            
+        </collision>
+        <xacro:inertial_box mass='0.5' x='0.3' y='0.3' z='0.15'>
+            <origin xyz="0.15 0 0.075" rpy='0 0 0'/>
+        </xacro:inertial_box>
+    </link>
+</robot>
